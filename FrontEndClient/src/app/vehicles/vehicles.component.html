@@ -1,0 +1,61 @@
+<h1>Vehicles</h1>
+<p> Here is data of vehicles blocking bike lanes gathered in 6 hours by volunteers in Pittsburgh, Pennsylvania
+  <a href="https://bikepgh.org/2019/10/29/bike-lanes-blocked-for-up-to-50-of-the-time-according-to-our-data-protected-bike-lane-project/">https://bikepgh.org/2019/10/29/bike-lanes-blocked-for-up-to-50-of-the-time-according-to-our-data-protected-bike-lane-project/</a>
+</p>
+<p *ngIf="!vehicles"><em>Loading...</em></p>
+
+
+<button mat-flat-button color="primary"
+class="btn-add" *ngIf="vehicles" [routerLink]="['/vehicle']">
+Add a new Vehicle
+</button>
+
+<mat-form-field [hidden]="!vehicles">
+  <input matInput #filter (keyup)="loadData(filter.value)"
+  placeholder="Filter by name (or part of it)...">
+  </mat-form-field>
+
+<table mat-table [dataSource]="vehicles"
+class="mat-elevation-z8"
+[hidden]="!vehicles"
+matSort (matSortChange)="loadData()"
+[matSortActive]="defaultSortColumn"
+[matSortDirection]="defaultSortOrder">
+
+
+<!-- Id Column -->
+<ng-container matColumnDef="id">
+<th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+<td mat-cell *matCellDef="let vehicle">{{vehicle.id}}</td>
+</ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="type">
+<th mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle type</th>
+<td mat-cell *matCellDef="let vehicle">
+  <a [routerLink]="['/vehicle', vehicle.id]"> {{vehicle.type}}</a>
+</td>
+</ng-container>
+
+<!-- Lat Column -->
+<ng-container matColumnDef="state">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>State License plate</th>
+  <td mat-cell *matCellDef="let vehicle">{{vehicle.state}}</td>
+  </ng-container>
+
+  <!-- Lon Column -->
+  <ng-container matColumnDef="vehicleMovement">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>VehicleMovement</th>
+  <td mat-cell *matCellDef="let vehicle">{{vehicle.vehicleMovement}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Pagination directive -->
+<mat-paginator [hidden]="!vehicles"
+(page)="getData($event)"
+[pageSize]="10"
+[pageSizeOptions]="[10, 20, 50]"
+showFirstLastButtons></mat-paginator>

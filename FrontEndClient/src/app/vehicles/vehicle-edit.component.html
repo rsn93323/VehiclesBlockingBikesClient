@@ -1,0 +1,51 @@
+<div class="vehicle-edit">
+  <h1>{{title}}</h1>
+  <p *ngIf="this.id && !vehicle"><em>Loading…</em></p>
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <!-- Name -->
+  <mat-form-field>
+  <mat-label>Type:</mat-label>
+  <input matInput formControlName="type" required
+  placeholder="Enter a type">
+  </mat-form-field>
+
+  <!-- Lat -->
+  <mat-form-field>
+  <mat-label>State:</mat-label>
+  <input matInput formControlName="state" required
+placeholder="Insert state">
+</mat-form-field>
+
+<!-- Lon -->
+<mat-form-field>
+<mat-label>VehicleMovement:</mat-label>
+<input matInput formControlName="vehicleMovement" required
+placeholder="Insert vehicleMovement">
+</mat-form-field>
+
+<!-- Country -->
+<mat-form-field *ngIf="addresses">
+  <mat-label>Select an Address...</mat-label>
+  <mat-select id="addressId" formControlName="addressId">
+  <mat-option *ngFor="let address of addresses"
+  [value]="address.id">
+  {{address.location}}
+  </mat-option>
+  </mat-select>
+  </mat-form-field>
+
+<div>
+<button mat-flat-button color="primary"
+type="submit">
+{{ this.id ? "Save" : "Create" }}
+</button>
+<button mat-flat-button color="secondary"
+[routerLink]="['/vehicles']">
+Cancel
+</button>
+</div>
+</form>
+</div>
