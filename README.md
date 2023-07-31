@@ -1,7 +1,5 @@
 
-# Project Title
-
-A brief description of what this project does and who it's for
+# VehiclesBlockingBikes
 
 This MVC Web Application was used to learn the process of creating a Full-Stack web application with ASP.Net and Angular
 
